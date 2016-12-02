@@ -24,8 +24,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :lunatube, Lunatube.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "lunatube_dev",
+  username: "poniverse",
+  password: "secret",
+  database: "app",
   hostname: "localhost",
   pool_size: 10
