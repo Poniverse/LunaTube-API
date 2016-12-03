@@ -15,7 +15,7 @@ defmodule Lunatube.AuthController do
     {:ok, lunatube_user} = create_lunatube_user(token, pv_user)
     {:ok, jwt, _full_claims} = lunatube_user |> Guardian.encode_and_sign(:token)
 
-    json %{user: lunatube_user, token: jwt}
+    json conn, %{user: lunatube_user, token: jwt}
   end
 
   def logout(conn, _params) do

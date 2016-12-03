@@ -21,4 +21,13 @@ defmodule Lunatube.ExternalUser do
     |> cast(params, [:user_id, :external_user_id, :type, :service, :access_token, :refresh_token, :expires])
     |> validate_required([:user_id, :external_user_id, :type, :service, :access_token, :refresh_token, :expires])
   end
+
+  def find_by_service_and_user(query \\ %ExternalUser{}, service, user_id) do
+    from u in query,
+    where: u.service == ^service and u.external_user_id == ^user_id
+  end
+
+  def find_poniverse_user(query \\ %ExternalUser{}, poniverse_user_id) do
+    find_by_service_and_user(query, "poniverse", poniverse_user_id)
+  end
 end
