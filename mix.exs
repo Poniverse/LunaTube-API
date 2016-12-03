@@ -19,7 +19,7 @@ defmodule Lunatube.Mixfile do
   def application do
     [mod: {Lunatube, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :poniverse, :guardian]]
+                    :phoenix_ecto, :postgrex, :poniverse, :guardian, :ex_machina]]
   end
 
   # Specifies which paths to compile per environment.
@@ -38,7 +38,8 @@ defmodule Lunatube.Mixfile do
      {:cowboy, "~> 1.0"},
      {:poniverse, "~> 0.1.0"},
      {:guardian, "~> 0.13.0"},
-     {:credo, "~> 0.5", only: [:dev, :test]}]
+     {:credo, "~> 0.5", only: [:dev, :test]},
+     {:ex_machina, "~> 1.0", only: [:dev, :test]}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
