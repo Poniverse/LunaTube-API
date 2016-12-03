@@ -1,19 +1,10 @@
-# Lunatube
+# Lunatube-API
 
-To start your Phoenix app:
+To start app for development:
 
   * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Start Phoenix endpoint with `mix phoenix.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
-
-## Learn more
-
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+  * Run `docker-compose up` (add the `-d` if you want have it detach from the terminal and run in the background)
+  * Open a new terminal if you didn't specify `-d`
+  * Create and migrate the database with `docker-compose run elixir mix ecto.migrate`
+  
+You should now be able to visit [`localhost:4000`](http://localhost:4000) from your browser.
