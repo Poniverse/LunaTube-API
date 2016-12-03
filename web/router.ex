@@ -3,9 +3,15 @@ defmodule Lunatube.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+    plug Guardian.Plug.VerifyHeader, realm: "Bearer"
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/", Lunatube do
     pipe_through :api
+
+    get "/auth", AuthController, :index
+    get "/auth/callback", AuthController, :callback
   end
 end
