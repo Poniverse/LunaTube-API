@@ -12,7 +12,7 @@ config :logger, level: :warn
 # Configure your database
 config :lunatube, Lunatube.Repo,
   adapter: Ecto.Adapters.Postgres,
-  hostname: "postgres",
+  hostname: "localhost",
   username: "poniverse",
   password: "secret",
   database: "app_test",

@@ -1,30 +1,30 @@
 version: "2"
 
 services:
-  elixir:
-    build: ./docker/elixir
-    command: mix phoenix.server
-    environment:
-      - MIX_ENV=dev
-    links:
-      - postgres
-    ports:
-      - "4000:4000"
-    volumes:
-        - ./:/opt/app
-
-  test:
-    build: ./docker/elixir
-    command: mix test
-    environment:
-      - MIX_ENV=test
-    volumes_from:
-      - elixir
-    links:
-      - postgres
+#  elixir:
+#    build: ./docker/elixir
+#    command: mix phoenix.server
+#    environment:
+#      - MIX_ENV=dev
+#    links:
+#      - postgres
+#    ports:
+#      - "4000:4000"
+#    volumes:
+#        - ./:/opt/app
+#
+#  test:
+#    build: ./docker/elixir
+#    command: mix test
+#    environment:
+#      - MIX_ENV=test
+#    volumes_from:
+#      - elixir
+#    links:
+#      - postgres
 
   postgres:
-    image: postgres:9.5
+    image: postgres:9.6
     ports:
       - "5432:5432"
     environment:
