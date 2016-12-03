@@ -10,8 +10,5 @@ defmodule Lunatube.Router do
 
   scope "/", Lunatube do
     pipe_through :api
-
-    get "/auth", AuthController, :index
-    get "/auth/callback", AuthController, :callback
   end
 end
