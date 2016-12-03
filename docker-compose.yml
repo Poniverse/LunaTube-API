@@ -1,6 +1,18 @@
 version: "2"
 
 services:
+  elixir:
+    build: ./docker/elixir
+    command: sh -c "mix phoenix.server"
+    environment:
+      - MIX_ENV=dev
+    links:
+      - postgres
+    ports:
+      - "4000:4000"
+    volumes:
+        - ./:/opt/app
+
   postgres:
     image: postgres:9.5
     ports:
