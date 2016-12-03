@@ -10,7 +10,8 @@ defmodule Lunatube.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
-     deps: deps()]
+     deps: deps(),
+     preferred_cli_env: [espec: :test]]
   end
 
   # Configuration for the OTP application.
@@ -39,7 +40,8 @@ defmodule Lunatube.Mixfile do
      {:poniverse, "~> 0.1.0"},
      {:guardian, "~> 0.13.0"},
      {:credo, "~> 0.5", only: [:dev, :test]},
-     {:ex_machina, "~> 1.0", only: [:dev, :test]}]
+     {:ex_machina, "~> 1.0", only: [:dev, :test]},
+     {:espec_phoenix, "~> 0.6.4", only: :test}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
