@@ -37,7 +37,8 @@ defmodule Lunatube.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:poniverse, "~> 0.1.0"},
-     {:guardian, "~> 0.13.0"}]
+     {:guardian, "~> 0.13.0"},
+     {:credo, "~> 0.5", only: [:dev, :test]}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
