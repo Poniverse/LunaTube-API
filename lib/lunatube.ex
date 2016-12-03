@@ -12,6 +12,7 @@ defmodule Lunatube do
       supervisor(Lunatube.Repo, []),
       # Start the endpoint when the application starts
       supervisor(Lunatube.Endpoint, []),
+      supervisor(Lunatube.Presence, []),
       # Start your own worker by calling: Lunatube.Worker.start_link(arg1, arg2, arg3)
       # worker(Lunatube.Worker, [arg1, arg2, arg3]),
     ]
