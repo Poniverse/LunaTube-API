@@ -3,7 +3,7 @@ defmodule Lunatube.UserTest do
 
   alias Lunatube.User
 
-  @valid_attrs %{display_name: "some content", email: "some content", username: "some content"}
+  @valid_attrs %{email: "some content", name: "some content", poniverse_id: 42}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

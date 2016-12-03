@@ -3,12 +3,11 @@ defmodule Lunatube.Repo.Migrations.CreateUser do
 
   def change do
     create table(:users) do
-      add :username, :string
-      add :display_name, :string
+      add :name, :string
       add :email, :string
+      add :poniverse_id, :integer
 
       timestamps()
     end
-
   end
 end

@@ -2,9 +2,9 @@ defmodule Lunatube.User do
   use Lunatube.Web, :model
 
   schema "users" do
-    field :username, :string
-    field :display_name, :string
+    field :name, :string
     field :email, :string
+    field :poniverse_id, :integer
 
     timestamps()
   end
@@ -14,7 +14,7 @@ defmodule Lunatube.User do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:username, :display_name, :email])
-    |> validate_required([:username, :display_name, :email])
+    |> cast(params, [:name, :email, :poniverse_id])
+    |> validate_required([:name, :email, :poniverse_id])
   end
 end
