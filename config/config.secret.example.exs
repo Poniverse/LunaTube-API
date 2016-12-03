@@ -10,3 +10,7 @@ config :poniverse,
   client_id: "PONIVERSE_CLIENT_ID",
   client_secret: "PONIVERSE_CLIENT_SECRET",
   redirect_uri: "REDIRECT_URI"
+
+# Secret key for guardian tokens
+config :guardian, Guardian,
+  secret_key: "SECRET_KEY" # Geneate a key using mix phoenix.gen.secret
