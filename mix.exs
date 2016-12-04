@@ -11,7 +11,8 @@ defmodule Lunatube.Mixfile do
      start_permanent: Mix.env == :prod,
      aliases: aliases(),
      deps: deps(),
-     preferred_cli_env: [espec: :test]]
+     test_coverage: [tool: ExCoveralls, test_task: "espec"],
+     preferred_cli_env: [espec: :test, coveralls: :test]]
   end
 
   # Configuration for the OTP application.
@@ -41,7 +42,8 @@ defmodule Lunatube.Mixfile do
      {:guardian, "~> 0.13.0"},
      {:credo, "~> 0.5", only: [:dev, :test]},
      {:ex_machina, "~> 1.0", only: [:dev, :test]},
-     {:espec_phoenix, "~> 0.6.4", only: :test}]
+     {:espec_phoenix, "~> 0.6.4", only: :test},
+     {:excoveralls, "~> 0.5", only: :test}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
