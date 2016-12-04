@@ -10,5 +10,7 @@ defmodule Lunatube.Router do
 
   scope "/", Lunatube do
     pipe_through :api
+
+    post "/session", AuthorizationController, :login
   end
 end

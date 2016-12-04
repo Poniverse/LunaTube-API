@@ -1,6 +1,8 @@
 defmodule Lunatube.User do
   use Lunatube.Web, :model
 
+  @derive {Poison.Encoder, only: [:id, :name, :email]}
+
   schema "users" do
     field :name, :string
     field :email, :string
