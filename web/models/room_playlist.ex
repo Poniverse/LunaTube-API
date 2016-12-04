@@ -2,8 +2,8 @@ defmodule Lunatube.RoomPlaylist do
   use Lunatube.Web, :model
 
   schema "room_playlists" do
-    belongs_to :room, Lunatube.Room
-    belongs_to :playlist, Lunatube.Playlist
+    belongs_to :room, Lunatube.Room, on_replace: :nilify
+    belongs_to :playlist, Lunatube.Playlist, on_replace: :nilify
 
     timestamps()
   end
@@ -14,7 +14,8 @@ defmodule Lunatube.RoomPlaylist do
   def changeset(room_playlist, params \\ %{}) do
     room_playlist
     |> cast(params, [:room_id, :playlist_id])
-    |> validate_required([:room_id, :playlist_id])
+    |> cast_assoc(:room, required: true)
+    |> cast_assoc(:playlist, required: true)
     |> assoc_constraint(:room)
     |> assoc_constraint(:playlist)
     |> unique_constraint(:duplicate_playlist,

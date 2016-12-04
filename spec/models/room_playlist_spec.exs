@@ -2,19 +2,23 @@ defmodule Lunatube.RoomPlaylistSpec do
   use ESpec.Phoenix, model: RoomPlaylist, async: true
   alias Lunatube.RoomPlaylist
 
+  let :room_playlist do
+    build :room_playlist
+  end
+
   it "has a valid factory" do
-    changeset = RoomPlaylist.changeset(%RoomPlaylist{}, params_with_assocs(:room_playlist))
+    changeset = room_playlist |> RoomPlaylist.changeset
     expect(changeset.valid?).to be_true
   end
 
   it "is invalid without a room" do
-    changeset = RoomPlaylist.changeset(%RoomPlaylist{}, params_with_assocs(:room_playlist, room: nil))
-    expect(changeset.errors).to have({:room_id, {"can't be blank", []}})
+    changeset = room_playlist |> RoomPlaylist.changeset(%{room: nil})
+    expect(changeset.errors).to have({:room, {"can't be blank", []}})
   end
 
   it "is invalid without a playlist" do
-    changeset = RoomPlaylist.changeset(%RoomPlaylist{}, params_with_assocs(:room_playlist, playlist: nil))
-    expect(changeset.errors).to have({:playlist_id, {"can't be blank", []}})
+    changeset = room_playlist |> RoomPlaylist.changeset(%{playlist: nil})
+    expect(changeset.errors).to have({:playlist, {"can't be blank", []}})
   end
 
   context "when a room-playlist already exists" do
@@ -31,7 +35,7 @@ defmodule Lunatube.RoomPlaylistSpec do
     end
 
     it "is invalid if it's an identical room-playlist" do
-      room_playlist = %RoomPlaylist{} |> RoomPlaylist.changeset(%{room_id: room.id, playlist_id: playlist.id})
+      room_playlist = RoomPlaylist.changeset(%RoomPlaylist{room: room, playlist: playlist}, %{})
       {:error, changeset} = Repo.insert(room_playlist)
 
       expect(changeset.errors).to have({:duplicate_playlist, {"already exists in room", []}})

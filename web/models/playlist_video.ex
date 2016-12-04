@@ -4,8 +4,8 @@ defmodule Lunatube.PlaylistVideo do
   schema "playlist_videos" do
     field :type, :string
     field :url, :string
-    belongs_to :playlist, Lunatube.Playlist
-    belongs_to :creator, Lunatube.Creator
+    belongs_to :playlist, Lunatube.Playlist, on_replace: :nilify
+    belongs_to :creator, Lunatube.Creator, on_replace: :nilify
 
     timestamps()
   end
@@ -16,7 +16,9 @@ defmodule Lunatube.PlaylistVideo do
   def changeset(playlist_video, params \\ %{}) do
     playlist_video
     |> cast(params, [:type, :url, :playlist_id, :creator_id])
-    |> validate_required([:type, :url, :playlist_id, :creator_id])
+    |> cast_assoc(:playlist, required: true)
+    |> cast_assoc(:creator, required: true)
+    |> validate_required([:type, :url])
     |> assoc_constraint(:playlist)
     |> assoc_constraint(:creator)
   end
