@@ -13,6 +13,10 @@ defmodule Lunatube.Factory do
     %{room | owner: build(:user)}
   end
 
+  def room_playlist_factory do
+    %Lunatube.RoomPlaylist{room: build(:room), playlist: build(:playlist)}
+  end
+
   def user_factory do
     %Lunatube.User{name: "Test", email: "test@poniverse.net", poniverse_id: 1}
   end
