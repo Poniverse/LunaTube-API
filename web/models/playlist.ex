@@ -5,6 +5,8 @@ defmodule Lunatube.Playlist do
     field :name, :string
     field :tracks_count, :integer
 
+    has_many :playlist_videos, Lunatube.PlaylistVideo
+
     timestamps()
   end
 

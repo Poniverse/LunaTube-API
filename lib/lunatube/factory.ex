@@ -5,6 +5,19 @@ defmodule Lunatube.Factory do
     %Lunatube.Playlist{name: "Test Playlist"}
   end
 
+  def with_videos(playlist, videos_count \\ 1) do
+    %{playlist | videos: build_list(videos_count, :playlist_video)}
+  end
+
+  def playlist_video_factory do
+    %Lunatube.PlaylistVideo{
+      type:     "Test",
+      url:      "test://test",
+      playlist: build(:playlist),
+      creator:  build(:user)
+    }
+  end
+
   def room_factory do
     %Lunatube.Room{name: "Test Room", last_state_at: Ecto.DateTime.utc, last_state_offset: 0}
   end
