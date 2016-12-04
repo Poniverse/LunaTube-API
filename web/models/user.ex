@@ -1,6 +1,8 @@
 defmodule Lunatube.User do
   use Lunatube.Web, :model
 
+  alias Lunatube.Repo
+
   @derive {Poison.Encoder, only: [:id, :name, :email]}
 
   schema "users" do
@@ -9,6 +11,25 @@ defmodule Lunatube.User do
     field :poniverse_id, :integer
 
     timestamps()
+  end
+
+  def get_by_poniverse_id(id) do
+    Repo.get_by(Lunatube.User, poniverse_id: id)
+  end
+
+  def from_poniverse_json(params) do
+    %Lunatube.User{
+        name: params["display_name"],
+        email: params["email"],
+        poniverse_id: String.to_integer(params["id"])
+    }
+  end
+
+  def get_or_insert(params) do
+    case Lunatube.User.get_by_poniverse_id(String.to_integer(params["id"])) do
+      nil -> Repo.insert!(Lunatube.User.from_poniverse_json(params))
+      user -> user
+    end
   end
 
   @doc """
