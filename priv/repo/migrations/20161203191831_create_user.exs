@@ -9,5 +9,8 @@ defmodule Lunatube.Repo.Migrations.CreateUser do
 
       timestamps()
     end
+
+    create index(:users, [:name], unique: true)
+    create index(:users, [:email], unique: true)
   end
 end
