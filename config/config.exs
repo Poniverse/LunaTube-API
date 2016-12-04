@@ -26,10 +26,10 @@ config :logger, :console,
 config :guardian, Guardian,
   allowed_algos: ["HS512"],
   verify_module: Guardian.JWT,
-  issuer: "LunaTube",
+  issuer: "Lunatube",
   ttl: { 30, :days },
   verify_issuer: true,
-  serializer: LunaTube.GuardianSerializer
+  serializer: Lunatube.GuardianSerializer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
