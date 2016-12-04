@@ -5,7 +5,7 @@ defmodule Lunatube.PlaylistVideo do
     field :type, :string
     field :url, :string
     belongs_to :playlist, Lunatube.Playlist, on_replace: :nilify
-    belongs_to :creator, Lunatube.Creator, on_replace: :nilify
+    belongs_to :creator, Lunatube.User, on_replace: :nilify
 
     timestamps()
   end
