@@ -1,5 +1,6 @@
 defmodule Lunatube.UserSocket do
   use Phoenix.Socket
+  import  Guardian.Phoenix.Socket
 
   ## Channels
   # channel "room:*", Lunatube.RoomChannel
@@ -19,6 +20,22 @@ defmodule Lunatube.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
+  def connect(%{"token" => jwt}, socket) do
+    case sign_in(socket, jwt) do
+      {:ok, authed_socket, guardian_params} ->
+        Logger.debug "Params: #{inspect(guardian_params)}"
+
+        authed_socket = authed_socket
+        |> set_current_user(guardian_params["resource"])
+
+        {:ok, authed_socket}
+      _ ->
+        Logger.debug "Unauthed error"
+        #unauthenticated socket
+        {:ok, socket}
+    end
+  end
+
   def connect(_params, socket) do
     {:ok, socket}
   end
@@ -33,5 +50,10 @@ defmodule Lunatube.UserSocket do
   #     Lunatube.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(_socket), do: nil
+  def id(%{assigns: %{user: %{id: id}}}), do: "users_socket:#{id}"
+  def id(_), do: nil
+
+  def set_current_user(socket, user) do
+    assign(socket, "user", user);
+  end
 end

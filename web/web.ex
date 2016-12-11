@@ -69,6 +69,16 @@ defmodule Lunatube.Web do
     end
   end
 
+  def repo do
+    quote do
+      alias Lunatube.Repo
+
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """
