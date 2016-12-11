@@ -23,14 +23,11 @@ defmodule Lunatube.UserSocket do
   def connect(%{"token" => jwt}, socket) do
     case sign_in(socket, jwt) do
       {:ok, authed_socket, guardian_params} ->
-        Logger.debug "Params: #{inspect(guardian_params)}"
-
         authed_socket = authed_socket
         |> set_current_user(guardian_params["resource"])
 
         {:ok, authed_socket}
       _ ->
-        Logger.debug "Unauthed error"
         #unauthenticated socket
         {:ok, socket}
     end
