@@ -2,6 +2,7 @@ defmodule Lunatube.UserSocket do
   use Phoenix.Socket
   require Logger
   import  Guardian.Phoenix.Socket
+  alias Lunatube.User
 
   ## Channels
   channel "room:*", Lunatube.RoomChannel
@@ -35,7 +36,7 @@ defmodule Lunatube.UserSocket do
   end
 
   def connect(_params, socket) do
-    {:ok, socket |> set_current_user(nil)}
+    {:ok, socket |> set_current_user(%User{id: :anonymous})}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -48,7 +49,8 @@ defmodule Lunatube.UserSocket do
   #     Lunatube.Endpoint.broadcast("users_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
-  def id(%{assigns: %{user: %{id: id}}}), do: "users_socket:#{id}"
+  def id(%{assigns: %{user: %User{id: :anonymous}}}), do: nil
+  def id(%{assigns: %{user: %User{id: id}}}), do: "users_socket:#{id}"
   def id(_), do: nil
 
   def set_current_user(socket, user) do

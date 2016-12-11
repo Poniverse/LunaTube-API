@@ -58,19 +58,11 @@ defmodule Lunatube.RoomChannel do
   end
 
   def handle_info(:after_join, socket) do
-    Logger.debug inspect(socket.assigns)
-
-    case socket.assigns[:user] do
-      nil ->
-        Logger.debug "Not Tracking"
-        {:noreply, socket}
-      user ->
-        Logger.debug "Tracking presence with user #{user.id}"
-        push socket, "presence_state", Presence.list(socket)
-        {:ok, _} = Presence.track(socket, user.id, %{
-          online_at: inspect(System.system_time(:seconds))
-        })
-        {:noreply, socket}
-    end
+    push socket, "presence_state", Presence.list(socket)
+    {:ok, _} = Presence.track(socket, socket.assigns.user.id, %{
+      online_at: inspect(System.system_time(:seconds)),
+      name: socket.assigns.user.name
+    })
+    {:noreply, socket}
   end
 end
