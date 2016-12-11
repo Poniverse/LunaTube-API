@@ -1,9 +1,10 @@
 defmodule Lunatube.UserSocket do
   use Phoenix.Socket
+  require Logger
   import  Guardian.Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Lunatube.RoomChannel
+  channel "room:*", Lunatube.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -24,7 +25,7 @@ defmodule Lunatube.UserSocket do
     case sign_in(socket, jwt) do
       {:ok, authed_socket, guardian_params} ->
         authed_socket = authed_socket
-        |> set_current_user(guardian_params["resource"])
+        |> set_current_user(guardian_params[:resource])
 
         {:ok, authed_socket}
       _ ->
@@ -34,7 +35,7 @@ defmodule Lunatube.UserSocket do
   end
 
   def connect(_params, socket) do
-    {:ok, socket}
+    {:ok, socket |> set_current_user(nil)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -51,6 +52,6 @@ defmodule Lunatube.UserSocket do
   def id(_), do: nil
 
   def set_current_user(socket, user) do
-    assign(socket, "user", user);
+    assign(socket, :user, user);
   end
 end

@@ -13,3 +13,4 @@
 import Lunatube.Factory
 
 insert(:user)
+insert(:room)
