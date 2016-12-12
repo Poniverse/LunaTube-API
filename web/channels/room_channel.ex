@@ -1,7 +1,7 @@
 defmodule Lunatube.RoomChannel do
   use Lunatube.Web, :channel
   require Logger
-  alias Lunatube.{Presence, Repo, Room}
+  alias Lunatube.{Presence, Repo, Room, RoomChannel.Monitor}
   alias Ecto.Changeset
 
   def join("room:" <> room_id, payload, socket) do
@@ -9,7 +9,7 @@ defmodule Lunatube.RoomChannel do
       room_state = get_state(room_id)
 
       send(self, :after_join)
-      {:ok, room_state, socket}
+      {:ok, room_state, assign(socket, :room, room_id)}
     else
       {:error, %{reason: "unauthorized"}}
     end
@@ -57,7 +57,14 @@ defmodule Lunatube.RoomChannel do
     true
   end
 
+  def terminate(_reason, socket) do
+    Monitor.del_from_channel_connections_count(socket.assigns.room)
+    :ok
+  end
+
   def handle_info(:after_join, socket) do
+    Monitor.add_to_channel_connections_count(socket.assigns.room)
+
     push socket, "presence_state", Presence.list(socket)
     {:ok, _} = Presence.track(socket, socket.assigns.user.id, %{
       online_at: inspect(System.system_time(:seconds)),

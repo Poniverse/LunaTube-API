@@ -15,6 +15,7 @@ defmodule Lunatube do
       supervisor(Lunatube.Presence, []),
       # Start your own worker by calling: Lunatube.Worker.start_link(arg1, arg2, arg3)
       # worker(Lunatube.Worker, [arg1, arg2, arg3]),
+      supervisor(Lunatube.RoomChannel.Supervisor, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
