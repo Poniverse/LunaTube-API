@@ -3,7 +3,7 @@ defmodule Lunatube.Room do
 
   schema "rooms" do
     field :name, :string
-    field :last_state_at, Ecto.DateTime
+    field :last_state_at, Timex.Ecto.DateTime
     field :last_state_offset, :integer
     field :last_known_state, :map
     belongs_to :owner, Lunatube.Owner

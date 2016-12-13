@@ -24,12 +24,13 @@ defmodule Lunatube.RoomChannel do
     case room.last_known_state do
       nil ->
         room = Changeset.change room, %{
+          last_state_at: Timex.now,
           last_known_state: %{
-            "source": "youtube",
-            "url": "Qi69aTLYF8E",
-            "state": "playing",
-            "duration": 256,
-            "current_time": 50
+            source: "youtube",
+            url: "Qi69aTLYF8E",
+            state: "playing",
+            duration: 256,
+            current_time: 0,
           }
         }
 

@@ -20,7 +20,7 @@ defmodule Lunatube.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Lunatube, []},
-     applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
+     applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext, :timex, :timex_ecto,
                     :phoenix_ecto, :postgrex, :poniverse, :guardian, :ex_machina]]
   end
 
@@ -40,6 +40,8 @@ defmodule Lunatube.Mixfile do
      {:cowboy, "~> 1.0"},
      {:poniverse, "~> 0.1.0"},
      {:guardian, "~> 0.13.0"},
+     {:timex, "~> 3.0"},
+     {:timex_ecto, "~> 3.0"},
      {:credo, "~> 0.5", only: [:dev, :test]},
      {:ex_machina, "~> 1.0", only: [:dev, :test]},
      {:espec_phoenix, "~> 0.6.4", only: :test},
