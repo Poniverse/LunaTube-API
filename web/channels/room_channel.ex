@@ -73,4 +73,15 @@ defmodule Lunatube.RoomChannel do
     })
     {:noreply, socket}
   end
+
+
+  #
+  # TODO: Reset video state when current_timer reaches duration
+  # Add a video_start_time to compare when diffing
+  # When a "leader" pauses the video, it should unset that
+  # When a "leader" resumes the video, it should set that and the current time based on the leaders
+  # state
+  # For now a "leader" is any user since we're not touching ACL right now
+  # Sync (Simple!) Pause and seek times between clients and log them to the state
+  #
 end
